@@ -1,6 +1,6 @@
 'use strict';
 
-var comments = [
+var COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -9,7 +9,7 @@ var comments = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-var description = [
+var DESCRIPTION = [
   'Тестим новую камеру!',
   'Затусили с друзьями на море',
   'Как же круто тут кормят',
@@ -28,10 +28,10 @@ var getArrayPictures = function () {
     var objectPhoto = {};
     objectPhoto.url = 'photos/' + i + '.jpg';
     objectPhoto.likes = randomNumber(15, 200);
-    objectPhoto.description = description[randomNumber(0, 5)];
+    objectPhoto.description = DESCRIPTION[randomNumber(0, 5)];
     var indexComments = randomNumber(1, 2);
     for (var j = 0; j < indexComments; j++) {
-      objectPhoto.comments = comments[randomNumber(0, 5)];
+      objectPhoto.comments = COMMENTS[randomNumber(0, 5)];
     }
     tempPictures[i - 1] = objectPhoto;
   }
@@ -39,9 +39,9 @@ var getArrayPictures = function () {
 };
 
 var pictures = getArrayPictures();
-var pictureTemplate = document.querySelector('#picture').content;
 
 var renderPicture = function (picture, index) {
+  var pictureTemplate = document.querySelector('#picture').content;
   var pictureElement = pictureTemplate.cloneNode(true);
   pictureElement.querySelector('.picture__img').setAttribute('src', picture.url);
   pictureElement.querySelector('.picture__img').setAttribute('data-element-id', index);
@@ -50,9 +50,8 @@ var renderPicture = function (picture, index) {
   return pictureElement;
 };
 
-var picturesDraw = document.querySelector('.pictures');
-
 var paintingPictures = function (array) {
+  var picturesDraw = document.querySelector('.pictures');
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < array.length - 1; i++) {
     fragment.appendChild(renderPicture(array[i], i));
@@ -60,22 +59,39 @@ var paintingPictures = function (array) {
   picturesDraw.appendChild(fragment);
 };
 
+var showBigPicture = function () {
+  var bigPicture = document.querySelector('.big-picture');
+  bigPicture.classList.remove('hidden');
+};
+
+var downloadToBigPicture = function () {
+  document.querySelector('.big-picture__img').setAttribute('src', pictures[0].url);
+  document.querySelector('.likes-count').textContent = pictures[0].likes;
+  document.querySelector('.comments-count').textContent = pictures[0].comments.length;
+  for (var i = 0; i < pictures[0].comments.length; i++) {
+    document.querySelectorAll('.social__comment').textContent = pictures[0].comments[i];
+  }
+};
+
+var showSocialComments = function () {
+  var socialCommentCount = document.querySelector('.social__comment-count');
+  var socialCommentLoadmore = document.querySelector('.social__comment-loadmore');
+  socialCommentCount.classList.add('visually-hidden');
+  socialCommentLoadmore.classList.add('visually-hidden');
+};
+
 paintingPictures(pictures);
+showBigPicture();
+downloadToBigPicture();
+showSocialComments();
 
-var bigPicture = document.querySelector('.big-picture');
-bigPicture.classList.remove('hidden');
-
-document.querySelector('.big-picture__img').setAttribute('src', pictures[0].url);
+/* document.querySelector('.big-picture__img').setAttribute('src', pictures[0].url);
 document.querySelector('.likes-count').textContent = pictures[0].likes;
 document.querySelector('.comments-count').textContent = pictures[0].comments.length;
 for (var i = 0; i < pictures[0].comments.length; i++) {
   document.querySelectorAll('.social__comment').textContent = pictures[0].comments[i];
-}
+} */
 
-var socialCommentCount = document.querySelector('.social__comment-count');
-var socialCommentLoadmore = document.querySelector('.social__comment-loadmore');
-socialCommentCount.classList.add('visually-hidden');
-socialCommentLoadmore.classList.add('visually-hidden');
 /* var pictures = [];
 
 for (var i = 1; i < 26; i++) {
