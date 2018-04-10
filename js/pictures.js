@@ -48,6 +48,21 @@ var renderPicture = function (picture, index) {
   return pictureElement;
 };
 
+var renderSocialComments = function (array, index) {
+  var socialCommentTemplate = document.querySelector('.social__comment');
+  var socialCommentElement = socialCommentTemplate.cloneNode(true);
+  socialCommentElement.querySelector('.social__comment--text').textContent = array.comments[index];
+};
+
+var paintingSocialComments = function (array) {
+  var socialCommentsDraw = document.querySelector('.social__comments');
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < array.length - 1; i++) {
+    fragment.appendChild(renderSocialComments(array[i], i));
+  }
+  socialCommentsDraw.appendChild(fragment);
+};
+
 var paintingPictures = function (array) {
   var picturesDraw = document.querySelector('.pictures');
   var fragment = document.createDocumentFragment();
@@ -84,6 +99,7 @@ var initPictures = function () {
   showBigPicture();
   downloadToBigPicture(pictures);
   showSocialComments();
+  paintingSocialComments(pictures);
 };
 
 initPictures();
