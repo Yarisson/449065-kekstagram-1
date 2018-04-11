@@ -83,7 +83,7 @@ var addComment = function () {
   element.textContent = COMMENTS[randomNumber(0, 5)];
 
   var avatar = document.createElement('img');
-  avatar.className = 'social-picture';
+  avatar.className = 'social__picture';
   avatar.src = 'img/avatar-' + randomNumber(1, 6) + '.svg';
   avatar.alt = 'Аватар комментатора фотографии';
   avatar.width = 35;
