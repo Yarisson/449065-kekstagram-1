@@ -48,21 +48,6 @@ var renderPicture = function (picture, index) {
   return pictureElement;
 };
 
-/* var renderSocialComments = function (array, index) {
-  var socialCommentTemplate = document.querySelector('.social__comment');
-  var socialCommentElement = socialCommentTemplate.cloneNode(true);
-  socialCommentElement.querySelector('.social__comment--text').textContent = array.comments[index];
-}; */
-
-/* var paintingSocialComments = function (array) {
-  var socialCommentsDraw = document.querySelector('.social__comments');
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < array.length - 1; i++) {
-    fragment.appendChild(renderSocialComments(array[i], i));
-  }
-  socialCommentsDraw.appendChild(fragment);
-}; */
-
 var paintingPictures = function (array) {
   var picturesDraw = document.querySelector('.pictures');
   var fragment = document.createDocumentFragment();
@@ -81,9 +66,6 @@ var downloadToBigPicture = function (array) {
   document.querySelector('.big-picture__img').setAttribute('src', array[0].url);
   document.querySelector('.likes-count').textContent = array[0].likes;
   document.querySelector('.comments-count').textContent = array[0].comments.length;
-/*  for (var i = 0; i < array[0].comments.length; i++) {
-    document.querySelectorAll('.social__comment').textContent = array[0].comments[i];
-  } */
 };
 
 var showSocialComments = function () {
@@ -93,18 +75,29 @@ var showSocialComments = function () {
   socialCommentLoadmore.classList.add('visually-hidden');
 };
 
-var newElementDraw = function (array) {
-  var fragment = document.createDocumentFragment();
+var addComment = function () {
+  var element = document.createElement('li');
+
+  element.classList.add('social__comment');
+  element.classList.add('social__comment--text');
+  element.textContent = COMMENTS[randomNumber(0, 5)];
+
+  var avatar = document.createElement('img');
+  avatar.className = 'social-picture';
+  avatar.src = 'img/avatar-' + randomNumber(1, 6) + '.svg';
+  avatar.alt = 'Аватар комментатора фотографии';
+  avatar.width = 35;
+  avatar.height = 35;
+  element.insertBefore(avatar, element.firstChild);
+
+  return element;
+};
+
+var drawNewComments = function () {
   var socialCommentsDraw = document.querySelector('.social__comments');
-  for (var i = 0; i < array[0].comments.length; i++) {
-    var avatarNumber = randomNumber(1, 6);
-    avatarNumber = avatarNumber + '';
-    var newSocialElement = document.createElement('li');
-    newSocialElement.className = 'social__comment social__comment--text';
-    newSocialElement.innerHTML = '<img class="social__picture" src="img/avatar-avatarNumber.svg" alt="Аватар комментатора фотографии" width="35" height="35">' + array[0].comments[i];
-    fragment.appendChild(newSocialElement);
+  for (var i = 0; i < 2; i++) {
+    socialCommentsDraw.appendChild(addComment());
   }
-  socialCommentsDraw.appendChild(fragment);
 };
 
 var initPictures = function () {
@@ -113,8 +106,7 @@ var initPictures = function () {
   showBigPicture();
   downloadToBigPicture(pictures);
   showSocialComments();
-  // paintingSocialComments(pictures);
-  newElementDraw(pictures);
+  drawNewComments();
 };
 
 initPictures();
