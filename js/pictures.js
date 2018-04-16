@@ -126,7 +126,6 @@ var pictureClickHandler = function (evt) {
   var bigPictureCancel = document.querySelector('.big-picture__cancel');
   showBigPicture(imgSrc, currentId, arrayPictures);
   showSocialComments();
-  //  downloadToBigPicture();
   document.querySelector('.social__comment-count').classList.add('hidden');
   document.querySelector('.social__comment-loadmore').classList.add('hidden');
   bigPictureCancel.addEventListener('click', bigPictureCancelClickHandler);
