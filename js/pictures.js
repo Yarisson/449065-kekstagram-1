@@ -65,8 +65,20 @@ var showBigPicture = function (url, indexId, array) {
   document.querySelector('.big-picture__img').querySelector('img').setAttribute('src', url);
   document.querySelector('.likes-count').textContent = pictureStatLikes[indexId].textContent;
   document.querySelector('.comments-count').textContent = pictureStatComments[indexId].textContent;
+  var socialComment = document.querySelectorAll('.social__comment');
+  var socialPicture = document.querySelectorAll('.social__picture');
   for (var j = 0; j < array[indexId].comments.length; j++) {
-    document.querySelectorAll('.social__comments').textContent = array[indexId].comments[j];
+    // socialComment[j].textContent = array[indexId].comments[j]; - при замене строчки которая написана ниже на эту, комментарии не перезаписываются после первого клика
+    socialComment[j].textContent = COMMENTS[randomNumber(0, 5)];
+    socialPicture[j].setAttribute('src', 'img/avatar-' + randomNumber(1, 6) + '.svg');
+    socialPicture[j].setAttribute('alt', 'Аватар комментатора фотографии');
+  }
+};
+
+var clearComments = function () {
+  var socialComment = document.querySelectorAll('.social__comment');
+  for (var i = 0; i < socialComment.length; i++) {
+    socialComment[i].textContent = '';
   }
 };
 
@@ -104,6 +116,7 @@ var bigPictureCancelClickHandler = function () {
   var bigPicture = document.querySelector('.big-picture');
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  clearComments();
 };
 
 var ESC = 27;
@@ -115,6 +128,7 @@ var bigPictureCancelClickEsc = function (evt) {
     var bigPicture = document.querySelector('.big-picture');
     bigPicture.classList.add('hidden');
     document.body.classList.add('modal-open');
+    clearComments();
   }
 };
 
