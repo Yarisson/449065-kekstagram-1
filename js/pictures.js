@@ -156,7 +156,7 @@ var uploadCancelClickHandler = function () {
   imgUploadOverlay.classList.add('hidden');
 };
 
-var UploadCancelClickEsc = function (evt) {
+var uploadCancelClickEsc = function (evt) {
   if (evt.keyCode === ESC) {
     imgUploadOverlay.classList.add('hidden');
   }
@@ -168,7 +168,7 @@ var uploadFileClickHandler = function () {
   imgUploadOverlay.classList.remove('hidden');
   imgUploadCancel.addEventListener('click', uploadCancelClickHandler);
 
-  document.addEventListener('keydown', UploadCancelClickEsc);
+  document.addEventListener('keydown', uploadCancelClickEsc);
 };
 
 var uploadLevelPin = function (evt) {
