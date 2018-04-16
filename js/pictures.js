@@ -57,9 +57,12 @@ var paintingPictures = function (array) {
   picturesDraw.appendChild(fragment);
 };
 
-var showBigPicture = function () {
+var showBigPicture = function (url, indexId) {
   var bigPicture = document.querySelector('.big-picture');
   bigPicture.classList.remove('hidden');
+/*  document.querySelector('.big-picture__img').querySelector('img').setAttribute('src', url);
+  document.querySelector('.likes-count').textContent = pictureStatLikes[indexId].textContent;
+  document.querySelector('.social__comment--text').textContent = pictureStatComments[indexId].textContent; */
 };
 
 var downloadToBigPicture = function (array, index) {
@@ -123,7 +126,7 @@ var pictureLink = document.querySelectorAll('.picture__link');
 var pictureStatLikes = document.querySelectorAll('.picture__stat--likes');
 var pictureStatComments = document.querySelectorAll('.picture__stat--comments');
 var uploadFile = document.querySelector('#upload-file');
-var imgUploadEffects = document.querySelector('.scale__pin');
+var imgUploadEffects = document.querySelector('.img-upload__effects');
 var resizeControlValue = document.querySelector('.resize__control--value');
 var resizeControlMinus = document.querySelector('.resize__control--minus');
 var resizeControlPlus = document.querySelector('.resize__control--plus');
@@ -150,12 +153,13 @@ var pictureClickHandler = function (evt) {
   var currentId = evt.target.getAttribute('data-element-id');
   var imgSrc = evt.target.getAttribute('src');
   var bigPictureCancel = document.querySelector('.big-picture__cancel');
-  showBigPicture();
-  document.querySelector('.big-picture__img').setAttribute('src', imgSrc);
+  showBigPicture(currentId, imgSrc);
+  document.querySelector('.social__comment-count').classList.add('hidden');
+  document.querySelector('.social__comment-loadmore').classList.add('hidden');
+  document.querySelector('.big-picture__img').querySelector('img').setAttribute('src', imgSrc);
   document.querySelector('.likes-count').textContent = pictureStatLikes[currentId].textContent;
-  //  drawNewComments(currentId);
-
   document.querySelector('.social__comment--text').textContent = pictureStatComments[currentId].textContent;
+  //  drawNewComments(currentId);
 
   bigPictureCancel.addEventListener('click', bigPictureCancelClickHandler);
   document.addEventListener('keydown', bigPictureCancelClickEsc);
@@ -188,19 +192,19 @@ var uploadFileClickHandler = function () {
 resizeControlValue.setAttribute('value', '100%');
 
 var uploadLevelPin = function (evt) {
-  var imgEffect = imgUploadPreview.img;
+  var imgEffect = imgUploadPreview.querySelector('img');
   var value = evt.target.parentElement.getAttribute('for').substring(7);
-  // imgEffect.classList.remove('effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--phobos', 'effects__preview--marvin', 'effect-sepia', 'effects__preview--none');
+  imgEffect.classList.remove('effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--phobos', 'effects__preview--marvin', 'effects__preview--heat', 'effects__preview--none');
 
   if (value === 'chrome') {
-    imgEffect.classList.add('effect-chrome');
+    imgEffect.classList.add('effects__preview--chrome');
     imgUploadPreview.setAttribute('style', 'filter: grayscale(1)');
   } else if (value === 'sepia') {
     imgEffect.classList.add('effects__preview--sepia');
     imgUploadPreview.setAttribute('style', 'filter: sepia(1)');
   } else if (value === 'marvin') {
     imgEffect.classList.add('effects__preview--marvin');
-    imgUploadPreview.setAttribute('style', 'filter: invert(100%)');
+    imgUploadPreview.setAttribute('style', 'filter: invert(10%)');
   } else if (value === 'phobos') {
     imgEffect.classList.add('effects__preview--phobos');
     imgUploadPreview.setAttribute('style', 'filter: blur(3, px)');
@@ -234,6 +238,6 @@ var resizeMinus = function () {
 clickPictures(pictureLink);
 
 uploadFile.addEventListener('change', uploadFileClickHandler);
-imgUploadEffects.addEventListener('mouseup', uploadLevelPin);
+imgUploadEffects.addEventListener('click', uploadLevelPin);
 resizeControlPlus.addEventListener('click', resizePlus);
 resizeControlMinus.addEventListener('click', resizeMinus);
