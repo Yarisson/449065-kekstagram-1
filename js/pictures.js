@@ -44,7 +44,7 @@ var renderPicture = function (picture, index) {
   var pictureElement = pictureTemplate.cloneNode(true);
   pictureElement.querySelector('.picture__img').setAttribute('src', picture.url);
   pictureElement.querySelector('.picture__img').setAttribute('data-element-id', index);
-  pictureElement.querySelector('.picture__stat--comments').textContent = picture.comments.length;
+  pictureElement.querySelector('.picture__stat--comments').textContent = picture.comment.length;
   pictureElement.querySelector('.picture__stat--likes').textContent = picture.likes;
   return pictureElement;
 };
@@ -63,7 +63,7 @@ var addComment = function (index, array, commentIndex) {
 
   element.classList.add('social__comment');
   element.classList.add('social__comment--text');
-  element.textContent = array[index].comments[commentIndex];
+  element.textContent = array[index].comment[commentIndex];
 
   var avatar = document.createElement('img');
   avatar.className = 'social__picture';
@@ -84,7 +84,7 @@ var showBigPicture = function (url, indexId, array) {
   document.querySelector('.comments-count').textContent = pictureStatComments[indexId].textContent;
   var socialComment = document.querySelectorAll('.social__comment');
   var socialPicture = document.querySelectorAll('.social__picture');
-  for (var j = 0; j < array[indexId].comments.length; j++) {
+  for (var j = 0; j < array[indexId].comment.length; j++) {
     // socialComment[j].textContent = array[indexId].comments[j]; - при замене строчки которая написана ниже на эту, комментарии не перезаписываются после первого клика
     addComment(indexId, array, j);
     // socialComment[j].textContent = COMMENTS[randomNumber(0, 5)];
