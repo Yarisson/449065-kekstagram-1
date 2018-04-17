@@ -76,6 +76,11 @@ var addComment = function (index, array, commentIndex) {
   return element;
 };
 
+var drawNewComments = function (index, array) {
+  var socialCommentsDraw = document.querySelector('.social__comments');
+  socialCommentsDraw.appendChild(addComment(index, array));
+};
+
 var showBigPicture = function (url, indexId, array) {
   var bigPicture = document.querySelector('.big-picture');
   bigPicture.classList.remove('hidden');
@@ -87,6 +92,7 @@ var showBigPicture = function (url, indexId, array) {
   for (var j = 0; j < array[indexId].comment.length; j++) {
     // socialComment[j].textContent = array[indexId].comments[j]; - при замене строчки которая написана ниже на эту, комментарии не перезаписываются после первого клика
     addComment(indexId, array, j);
+    drawNewComments(j, array);
     // socialComment[j].textContent = COMMENTS[randomNumber(0, 5)];
     // socialPicture[j].setAttribute('src', 'img/avatar-' + randomNumber(1, 6) + '.svg');
     // socialPicture[j].setAttribute('alt', 'Аватар комментатора фотографии');
