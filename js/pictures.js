@@ -76,9 +76,9 @@ var addComment = function (index, array, commentIndex) {
   return element;
 };
 
-var drawNewComments = function (index, array) {
+var drawNewComments = function (drawComment) {
   var socialCommentsDraw = document.querySelector('.social__comments');
-  socialCommentsDraw.appendChild(addComment(index, array));
+  socialCommentsDraw.appendChild(drawComment);
 };
 
 var showBigPicture = function (url, indexId, array) {
@@ -87,15 +87,10 @@ var showBigPicture = function (url, indexId, array) {
   document.querySelector('.big-picture__img').querySelector('img').setAttribute('src', url);
   document.querySelector('.likes-count').textContent = pictureStatLikes[indexId].textContent;
   document.querySelector('.comments-count').textContent = pictureStatComments[indexId].textContent;
-  var socialComment = document.querySelectorAll('.social__comment');
-  var socialPicture = document.querySelectorAll('.social__picture');
+  var drawComments = [];
   for (var j = 0; j < array[indexId].comment.length; j++) {
-    // socialComment[j].textContent = array[indexId].comments[j]; - при замене строчки которая написана ниже на эту, комментарии не перезаписываются после первого клика
-    addComment(indexId, array, j);
-    drawNewComments(j, array);
-    // socialComment[j].textContent = COMMENTS[randomNumber(0, 5)];
-    // socialPicture[j].setAttribute('src', 'img/avatar-' + randomNumber(1, 6) + '.svg');
-    // socialPicture[j].setAttribute('alt', 'Аватар комментатора фотографии');
+    drawComments[j] = addComment(indexId, array, j);
+    drawNewComments(drawComments[j]);
   }
 };
 
@@ -103,6 +98,9 @@ var clearComments = function () {
   var socialComment = document.querySelectorAll('.social__comment');
   for (var i = 0; i < socialComment.length; i++) {
     socialComment[i].textContent = '';
+  }
+  while (socialComments.firstChild) {
+    socialComments.removeChild(socialComments.firstChild);
   }
 };
 
@@ -136,6 +134,7 @@ var resizeControlPlus = document.querySelector('.resize__control--plus');
 var imgUploadPreview = document.querySelector('.img-upload__preview');
 var imgUploadOverlay = document.querySelector('.img-upload__overlay');
 var imgUploadCancel = document.querySelector('.img-upload__cancel');
+var socialComments = document.querySelector('.social__comments');
 
 var bigPictureCancelClickHandler = function () {
   var bigPicture = document.querySelector('.big-picture');
