@@ -24,17 +24,16 @@ var randomNumber = function (a, b) {
 
 var getArrayPictures = function () {
   var tempPictures = [];
-  var tempComments = [];
   for (var i = 1; i < 26; i++) {
     var objectPhoto = {};
     objectPhoto.url = 'photos/' + i + '.jpg';
     objectPhoto.likes = randomNumber(15, 200);
     objectPhoto.description = DESCRIPTIONS[randomNumber(0, 5)];
+    objectPhoto.comment = [];
     var indexComments = randomNumber(1, 2);
     for (var j = 0; j < indexComments; j++) {
-      tempComments[j] = COMMENTS[randomNumber(0, 5)];
+      objectPhoto.comment.push(COMMENTS[randomNumber(0, 5)]);
     }
-    objectPhoto.comments = tempComments;
     tempPictures[i - 1] = objectPhoto;
   }
   return tempPictures;
@@ -59,6 +58,24 @@ var paintingPictures = function (array) {
   picturesDraw.appendChild(fragment);
 };
 
+var addComment = function (index, array, commentIndex) {
+  var element = document.createElement('li');
+
+  element.classList.add('social__comment');
+  element.classList.add('social__comment--text');
+  element.textContent = array[index].comments[commentIndex];
+
+  var avatar = document.createElement('img');
+  avatar.className = 'social__picture';
+  avatar.src = 'img/avatar-' + randomNumber(1, 6) + '.svg';
+  avatar.alt = 'Аватар комментатора фотографии';
+  avatar.width = 35;
+  avatar.height = 35;
+  element.insertBefore(avatar, element.firstChild);
+
+  return element;
+};
+
 var showBigPicture = function (url, indexId, array) {
   var bigPicture = document.querySelector('.big-picture');
   bigPicture.classList.remove('hidden');
@@ -69,9 +86,10 @@ var showBigPicture = function (url, indexId, array) {
   var socialPicture = document.querySelectorAll('.social__picture');
   for (var j = 0; j < array[indexId].comments.length; j++) {
     // socialComment[j].textContent = array[indexId].comments[j]; - при замене строчки которая написана ниже на эту, комментарии не перезаписываются после первого клика
-    socialComment[j].textContent = COMMENTS[randomNumber(0, 5)];
-    socialPicture[j].setAttribute('src', 'img/avatar-' + randomNumber(1, 6) + '.svg');
-    socialPicture[j].setAttribute('alt', 'Аватар комментатора фотографии');
+    addComment(indexId, array, j);
+    // socialComment[j].textContent = COMMENTS[randomNumber(0, 5)];
+    // socialPicture[j].setAttribute('src', 'img/avatar-' + randomNumber(1, 6) + '.svg');
+    // socialPicture[j].setAttribute('alt', 'Аватар комментатора фотографии');
   }
 };
 
@@ -111,6 +129,7 @@ var resizeControlMinus = document.querySelector('.resize__control--minus');
 var resizeControlPlus = document.querySelector('.resize__control--plus');
 var imgUploadPreview = document.querySelector('.img-upload__preview');
 var imgUploadOverlay = document.querySelector('.img-upload__overlay');
+var imgUploadCancel = document.querySelector('.img-upload__cancel');
 
 var bigPictureCancelClickHandler = function () {
   var bigPicture = document.querySelector('.big-picture');
@@ -154,16 +173,21 @@ var clickPictures = function (array) {
 
 var uploadCancelClickHandler = function () {
   imgUploadOverlay.classList.add('hidden');
+  document.removeEventListener('keydown', uploadCancelClickEsc);
+  imgUploadCancel.removeEventListener('click', uploadCancelClickHandler);
+  document.querySelector('#upload-file').value = '';
 };
 
 var uploadCancelClickEsc = function (evt) {
   if (evt.keyCode === ESC) {
     imgUploadOverlay.classList.add('hidden');
+    document.removeEventListener('keydown', uploadCancelClickEsc);
+    imgUploadCancel.removeEventListener('click', uploadCancelClickHandler);
+    document.querySelector('#upload-file').value = '';
   }
 };
 
 var uploadFileClickHandler = function () {
-  var imgUploadCancel = document.querySelector('.img-upload__cancel');
   resizeControlValue.setAttribute('value', '100%');
   imgUploadOverlay.classList.remove('hidden');
   imgUploadCancel.addEventListener('click', uploadCancelClickHandler);
