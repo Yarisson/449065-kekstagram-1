@@ -76,9 +76,9 @@ var addComment = function (index, array, commentIndex) {
   return element;
 };
 
-var drawNewComments = function (drawComment) {
+var drawNewComments = function (commentsToDraw) {
   var socialCommentsDraw = document.querySelector('.social__comments');
-  socialCommentsDraw.appendChild(drawComment);
+  socialCommentsDraw.appendChild(commentsToDraw);
 };
 
 var showBigPicture = function (url, indexId, array) {
@@ -87,10 +87,10 @@ var showBigPicture = function (url, indexId, array) {
   document.querySelector('.big-picture__img').querySelector('img').setAttribute('src', url);
   document.querySelector('.likes-count').textContent = pictureStatLikes[indexId].textContent;
   document.querySelector('.comments-count').textContent = pictureStatComments[indexId].textContent;
-  var drawComments = [];
+  var commentElements = [];
   for (var j = 0; j < array[indexId].comment.length; j++) {
-    drawComments[j] = addComment(indexId, array, j);
-    drawNewComments(drawComments[j]);
+    commentElements[j] = addComment(indexId, array, j);
+    drawNewComments(commentElements[j]);
   }
 };
 
