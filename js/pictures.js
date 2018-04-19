@@ -251,3 +251,91 @@ uploadFile.addEventListener('change', uploadFileClickHandler);
 imgUploadEffects.addEventListener('click', uploadLevelPin);
 resizeControlPlus.addEventListener('click', resizePlus);
 resizeControlMinus.addEventListener('click', resizeMinus);
+
+
+var buttonSubmit = document.querySelector('.img-upload__submit');
+var inputHashTags = document.querySelector('.text__hashtags');
+var textareaComments = document.querySelector('.text__description');
+var imgUploadMessageError = document.querySelector('.img-upload__message--error');
+
+var inputHashTagsFocus = function () {
+  document.removeEventListener('keydown', uploadCancelClickEsc);
+};
+
+var inputHashTagsBlur = function () {
+  document.addEventListener('keydown', uploadCancelClickEsc);
+};
+
+var textareaFocus = function () {
+  document.removeEventListener('keydown', uploadCancelClickEsc);
+};
+
+var textareaBlur = function () {
+  document.addEventListener('keydown', uploadCancelClickEsc);
+};
+
+var validityComments = function (validityFlag) {
+  if (textareaComments.value.length > 140) {
+    textareaComments.setCustomValidity('Длина комментария не может превышать 140 символов');
+    imgUploadMessageError.classList.remove('hidden');
+    textareaComments.style.border = '2px solid red';
+    validityFlag = false;
+  } else {
+    return validityFlag;
+  }
+};
+
+var validityHashTags = function (validityFlag) {
+  var hashTagString = inputHashTags.value;
+  var SEPARATOR = ' ';
+  var hashTagStringLowerCase = hashTagString.toLowerCase();
+  var stringHashTags = hashTagStringLowerCase.split(SEPARATOR);
+  var hashTags = stringHashTags;
+  if (hashTags.length > 4) {
+    inputHashTags.setCustomValidity('Количество хэш-тегов не может быть больше 5');
+    imgUploadMessageError.classList.remove('hidden');
+    validityFlag = false;
+  } else {
+    for (var i = 0; i < hashTags.length; i++) {
+      if (hashTags[i].charAt(0) !== '#') {
+        inputHashTags.setCustomValidity('Отсутствует символ # в начале хэш-тега');
+        inputHashTags.style.border = '2px solid red';
+        imgUploadMessageError.classList.remove('hidden');
+        validityFlag = false;
+      } else if (hashTags[i].length > 20) {
+        inputHashTags.setCustomValidity('Длина одного хэш-тега не должна быть больше символов 20');
+        imgUploadMessageError.classList.remove('hidden');
+        validityFlag = false;
+      } else {
+        var hashTagIndex = i;
+        for (var j = hashTagIndex + 1; j < hashTags.length; j++) {
+          if (hashTags[i] === hashTags[j]) {
+            inputHashTags.setCustomValidity('Нельзя использовать одинаковые хэш-теги');
+            imgUploadMessageError.classList.remove('hidden');
+            validityFlag = false;
+          }
+        }
+      }
+    }
+    if (validityFlag === true) {
+      return validityFlag;
+    }
+  }
+};
+
+var buttonFormSubmit = function (evt) {
+  var validityFlagHashTags = true;
+  var validityFlagComments = true;
+  validityComments(validityFlagComments);
+  validityHashTags(validityFlagHashTags);
+  if (validityFlagHashTags && validityFlagHashTags) {
+    imgUploadOverlay.classList.add('hidden');
+  }
+  evt.preventDefault();
+};
+
+inputHashTags.addEventListener('focus', inputHashTagsFocus);
+buttonSubmit.addEventListener('click', buttonFormSubmit);
+inputHashTags.addEventListener('blur', inputHashTagsBlur);
+textareaComments.addEventListener('focus', textareaFocus);
+textareaComments.addEventListener('blur', textareaBlur);
