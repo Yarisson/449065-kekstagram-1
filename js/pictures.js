@@ -306,12 +306,12 @@ var validateHashTags = function () {
   }
 };
 
-var buttonFormClickHandler = function () {
+var onButtonFormClick = function () {
   validateHashTags();
 };
 
 inputHashTagsElement.addEventListener('focus', onInputHashTagsFocus);
-buttonSubmitElement.addEventListener('click', buttonFormClickHandler);
+buttonSubmitElement.addEventListener('click', onButtonFormClick);
 inputHashTagsElement.addEventListener('blur', onInputHashTagsBlur);
 textareaCommentsElement.addEventListener('focus', onTextareaFocus);
 textareaCommentsElement.addEventListener('blur', onTextareaBlur);
