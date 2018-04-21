@@ -315,3 +315,62 @@ buttonSubmitElement.addEventListener('click', onButtonFormClick);
 inputHashTagsElement.addEventListener('blur', onInputHashTagsBlur);
 textareaCommentsElement.addEventListener('focus', onTextareaFocus);
 textareaCommentsElement.addEventListener('blur', onTextareaBlur);
+
+var imgUploadScale = document.querySelector('.img-upload__scale');
+var scalePinElement = imgUploadScale.querySelector('.scale__pin');
+var scaleLevel = document.querySelector('.scale__level');
+
+var onScalePinElementMousedown = function (evt) {
+  evt.preventDefault();
+
+  var startCoords = {
+    x: evt.clientX
+  };
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX
+    };
+
+    startCoords = {
+      x: moveEvt.clientX
+    };
+
+    var scaleNewPosition = scalePinElement.offsetLeft - shift.x;
+    var scaleWidth = (scaleNewPosition / 455) * 100;
+    var currentFilter = imgUploadPreview.getAttribute('style', 'filter');
+    currentFilter = currentFilter * scaleNewPosition / 455;
+
+    if (scaleNewPosition >= 455) {
+      scalePinElement.style.left = 455 + 'px';
+      scaleLevel.setAttribute('style', 'width: 100%');
+      currentFilter = currentFilter * 1;
+      imgUploadPreview.setAttribute('style', 'filter:' + currentFilter + '');
+    } else if (scaleNewPosition <= 0) {
+      scalePinElement.style.left = 0 + 'px';
+      scaleLevel.setAttribute('style', 'width: 0%');
+      currentFilter = currentFilter * 0;
+      imgUploadPreview.setAttribute('style', 'filter:' + currentFilter + '');
+    } else {
+      scalePinElement.style.left = (scalePinElement.offsetLeft - shift.x) + 'px';
+      var currentWidth = scaleWidth + '%';
+      scaleLevel.setAttribute('style', 'width:' + currentWidth + '');
+      currentFilter = currentFilter * scaleNewPosition / 455;
+      imgUploadPreview.setAttribute('style', 'filter:' + currentFilter + '');
+    }
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+};
+
+scalePinElement.addEventListener('mousedown', onScalePinElementMousedown);
