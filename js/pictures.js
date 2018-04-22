@@ -205,25 +205,33 @@ var uploadLevelPin = function (evt) {
   var imgEffect = imgUploadPreview.querySelector('img');
   var value = evt.target.parentElement.getAttribute('for').substring(7);
   imgEffect.classList.remove('effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--phobos', 'effects__preview--marvin', 'effects__preview--heat', 'effects__preview--none');
+  scalePinElement.style.left = 455 + 'px';
+  scaleLevel.setAttribute('style', 'width: 100%');
 
   if (value === 'chrome') {
     imgEffect.classList.add('effects__preview--chrome');
     imgUploadPreview.setAttribute('style', 'filter: grayscale(1)');
+    imgUploadScale.classList.remove('hidden');
   } else if (value === 'sepia') {
     imgEffect.classList.add('effects__preview--sepia');
     imgUploadPreview.setAttribute('style', 'filter: sepia(1)');
+    imgUploadScale.classList.remove('hidden');
   } else if (value === 'marvin') {
     imgEffect.classList.add('effects__preview--marvin');
-    imgUploadPreview.setAttribute('style', 'filter: invert(10%)');
+    imgUploadPreview.setAttribute('style', 'filter: invert(100%)');
+    imgUploadScale.classList.remove('hidden');
   } else if (value === 'phobos') {
     imgEffect.classList.add('effects__preview--phobos');
     imgUploadPreview.setAttribute('style', 'filter: blur(3, px)');
+    imgUploadScale.classList.remove('hidden');
   } else if (value === 'heat') {
     imgEffect.classList.add('effects__preview--heat');
     imgUploadPreview.setAttribute('style', 'filter: brightness(3)');
+    imgUploadScale.classList.remove('hidden');
   } else {
     imgEffect.classList.add('effects__preview--none');
     imgUploadPreview.setAttribute('style', 'filter: none');
+    imgUploadScale.classList.add('hidden');
   }
 };
 
@@ -340,31 +348,26 @@ var onScalePinElementMousedown = function (evt) {
 
     var scaleNewPosition = scalePinElement.offsetLeft - shift.x;
     var scaleWidth = (scaleNewPosition / 455) * 100;
-    var currentFilter = imgUploadPreview.getAttribute('style', 'filter');
-    currentFilter = currentFilter * scaleNewPosition / 455;
+    var filterWidth = (Math.round((scaleNewPosition / 455) * 100) / 100);
 
     if (scaleNewPosition >= 455) {
       scalePinElement.style.left = 455 + 'px';
       scaleLevel.setAttribute('style', 'width: 100%');
-      currentFilter = currentFilter * 1;
-      imgUploadPreview.setAttribute('style', 'filter:' + currentFilter + '');
+      uploadLevelPin2(filterWidth);
     } else if (scaleNewPosition <= 0) {
       scalePinElement.style.left = 0 + 'px';
       scaleLevel.setAttribute('style', 'width: 0%');
-      currentFilter = currentFilter * 0;
-      imgUploadPreview.setAttribute('style', 'filter:' + currentFilter + '');
+      uploadLevelPin2(filterWidth);
     } else {
       scalePinElement.style.left = (scalePinElement.offsetLeft - shift.x) + 'px';
       var currentWidth = scaleWidth + '%';
       scaleLevel.setAttribute('style', 'width:' + currentWidth + '');
-      currentFilter = currentFilter * scaleNewPosition / 455;
-      imgUploadPreview.setAttribute('style', 'filter:' + currentFilter + '');
+      uploadLevelPin2(filterWidth);
     }
   };
 
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
-
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   };
@@ -374,3 +377,22 @@ var onScalePinElementMousedown = function (evt) {
 };
 
 scalePinElement.addEventListener('mousedown', onScalePinElementMousedown);
+
+var uploadLevelPin2 = function (coeficient) {
+  var imgEffect = imgUploadPreview.querySelector('img');
+  var value = imgEffect.className.substring(18);
+
+  if (value === 'chrome') {
+    imgUploadPreview.setAttribute('style', 'filter: grayscale(' + 1 * coeficient + ')');
+  } else if (value === 'sepia') {
+    imgUploadPreview.setAttribute('style', 'filter: sepia(' + 1 * coeficient + ')');
+  } else if (value === 'marvin') {
+    imgUploadPreview.setAttribute('style', 'filter: invert(' + 100 * coeficient + '%)');
+  } else if (value === 'phobos') {
+    imgUploadPreview.setAttribute('style', 'filter: blur(' + 3 * coeficient + ', px)');
+  } else if (value === 'heat') {
+    imgUploadPreview.setAttribute('style', 'filter: brightness(' + (1 + 2 * coeficient) + ')');
+  } else {
+    imgUploadPreview.setAttribute('style', 'filter: none');
+  }
+};
