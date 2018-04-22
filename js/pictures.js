@@ -132,6 +132,7 @@ var resizeControlValue = document.querySelector('.resize__control--value');
 var resizeControlMinus = document.querySelector('.resize__control--minus');
 var resizeControlPlus = document.querySelector('.resize__control--plus');
 var imgUploadPreview = document.querySelector('.img-upload__preview');
+var imgEffect = imgUploadPreview.querySelector('img');
 var imgUploadOverlay = document.querySelector('.img-upload__overlay');
 var imgUploadCancel = document.querySelector('.img-upload__cancel');
 var socialComments = document.querySelector('.social__comments');
@@ -202,14 +203,13 @@ var uploadFileClickHandler = function () {
 
 var onUploadEffectsClick = function (evt) {
   evt.preventDefault();
-  var imgEffect = imgUploadPreview.querySelector('img');
   var filterValue = evt.target.parentElement.getAttribute('for').substring(7);
   imgEffect.classList.remove('effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--phobos', 'effects__preview--marvin', 'effects__preview--heat', 'effects__preview--none');
   scalePinElement.style.left = 455 + 'px';
   scaleLevel.setAttribute('style', 'width: 100%');
   uploadLevelPin(1, filterValue);
 
-  if (filterValue === 'chrome') {
+  /* if (filterValue === 'chrome') {
     imgEffect.classList.add('effects__preview--chrome');
     imgUploadScale.classList.remove('hidden');
   } else if (filterValue === 'sepia') {
@@ -227,7 +227,7 @@ var onUploadEffectsClick = function (evt) {
   } else {
     imgEffect.classList.add('effects__preview--none');
     imgUploadScale.classList.add('hidden');
-  }
+  } */
 };
 
 var resizePlus = function () {
@@ -344,7 +344,6 @@ var onScalePinElementMousedown = function (evt) {
     var scaleNewPosition = scalePinElement.offsetLeft - shift.x;
     var scaleWidth = (scaleNewPosition / 455) * 100;
     var filterWidth = (Math.round((scaleNewPosition / 455) * 100) / 100);
-    var imgEffect = imgUploadPreview.querySelector('img');
     var currentValue = imgEffect.className.substring(18);
 
     if (scaleNewPosition >= 455) {
@@ -378,16 +377,28 @@ scalePinElement.addEventListener('mousedown', onScalePinElementMousedown);
 var uploadLevelPin = function (coeficient, value) {
 
   if (value === 'chrome') {
+    imgEffect.classList.add('effects__preview--chrome');
+    imgUploadScale.classList.remove('hidden');
     imgUploadPreview.setAttribute('style', 'filter: grayscale(' + 1 * coeficient + ')');
   } else if (value === 'sepia') {
+    imgEffect.classList.add('effects__preview--sepia');
+    imgUploadScale.classList.remove('hidden');
     imgUploadPreview.setAttribute('style', 'filter: sepia(' + 1 * coeficient + ')');
   } else if (value === 'marvin') {
+    imgEffect.classList.add('effects__preview--marvin');
+    imgUploadScale.classList.remove('hidden');
     imgUploadPreview.setAttribute('style', 'filter: invert(' + 100 * coeficient + '%)');
   } else if (value === 'phobos') {
+    imgEffect.classList.add('effects__preview--phobos');
+    imgUploadScale.classList.remove('hidden');
     imgUploadPreview.setAttribute('style', 'filter: blur(' + 3 * coeficient + ', px)');
   } else if (value === 'heat') {
+    imgEffect.classList.add('effects__preview--heat');
+    imgUploadScale.classList.remove('hidden');
     imgUploadPreview.setAttribute('style', 'filter: brightness(' + (1 + 2 * coeficient) + ')');
   } else {
+    imgEffect.classList.add('effects__preview--none');
+    imgUploadScale.classList.add('hidden');
     imgUploadPreview.setAttribute('style', 'filter: none');
   }
 };
