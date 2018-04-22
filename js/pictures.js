@@ -200,37 +200,32 @@ var uploadFileClickHandler = function () {
   document.addEventListener('keydown', uploadCancelClickEsc);
 };
 
-var uploadLevelPin = function (evt) {
+var onUploadEffectsClick = function (evt) {
   evt.preventDefault();
   var imgEffect = imgUploadPreview.querySelector('img');
-  var value = evt.target.parentElement.getAttribute('for').substring(7);
+  var filterValue = evt.target.parentElement.getAttribute('for').substring(7);
   imgEffect.classList.remove('effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--phobos', 'effects__preview--marvin', 'effects__preview--heat', 'effects__preview--none');
   scalePinElement.style.left = 455 + 'px';
   scaleLevel.setAttribute('style', 'width: 100%');
+  uploadLevelPin(1, filterValue);
 
-  if (value === 'chrome') {
+  if (filterValue === 'chrome') {
     imgEffect.classList.add('effects__preview--chrome');
-    imgUploadPreview.setAttribute('style', 'filter: grayscale(1)');
     imgUploadScale.classList.remove('hidden');
-  } else if (value === 'sepia') {
+  } else if (filterValue === 'sepia') {
     imgEffect.classList.add('effects__preview--sepia');
-    imgUploadPreview.setAttribute('style', 'filter: sepia(1)');
     imgUploadScale.classList.remove('hidden');
-  } else if (value === 'marvin') {
+  } else if (filterValue === 'marvin') {
     imgEffect.classList.add('effects__preview--marvin');
-    imgUploadPreview.setAttribute('style', 'filter: invert(100%)');
     imgUploadScale.classList.remove('hidden');
-  } else if (value === 'phobos') {
+  } else if (filterValue === 'phobos') {
     imgEffect.classList.add('effects__preview--phobos');
-    imgUploadPreview.setAttribute('style', 'filter: blur(3, px)');
     imgUploadScale.classList.remove('hidden');
-  } else if (value === 'heat') {
+  } else if (filterValue === 'heat') {
     imgEffect.classList.add('effects__preview--heat');
-    imgUploadPreview.setAttribute('style', 'filter: brightness(3)');
     imgUploadScale.classList.remove('hidden');
   } else {
     imgEffect.classList.add('effects__preview--none');
-    imgUploadPreview.setAttribute('style', 'filter: none');
     imgUploadScale.classList.add('hidden');
   }
 };
@@ -256,7 +251,7 @@ var resizeMinus = function () {
 clickPictures(pictureLink);
 
 uploadFile.addEventListener('change', uploadFileClickHandler);
-imgUploadEffects.addEventListener('click', uploadLevelPin);
+imgUploadEffects.addEventListener('click', onUploadEffectsClick);
 resizeControlPlus.addEventListener('click', resizePlus);
 resizeControlMinus.addEventListener('click', resizeMinus);
 
@@ -349,20 +344,22 @@ var onScalePinElementMousedown = function (evt) {
     var scaleNewPosition = scalePinElement.offsetLeft - shift.x;
     var scaleWidth = (scaleNewPosition / 455) * 100;
     var filterWidth = (Math.round((scaleNewPosition / 455) * 100) / 100);
+    var imgEffect = imgUploadPreview.querySelector('img');
+    var currentValue = imgEffect.className.substring(18);
 
     if (scaleNewPosition >= 455) {
       scalePinElement.style.left = 455 + 'px';
       scaleLevel.setAttribute('style', 'width: 100%');
-      uploadLevelPin2(filterWidth);
+      uploadLevelPin(filterWidth, currentValue);
     } else if (scaleNewPosition <= 0) {
       scalePinElement.style.left = 0 + 'px';
       scaleLevel.setAttribute('style', 'width: 0%');
-      uploadLevelPin2(filterWidth);
+      uploadLevelPin(filterWidth, currentValue);
     } else {
       scalePinElement.style.left = (scalePinElement.offsetLeft - shift.x) + 'px';
       var currentWidth = scaleWidth + '%';
       scaleLevel.setAttribute('style', 'width:' + currentWidth + '');
-      uploadLevelPin2(filterWidth);
+      uploadLevelPin(filterWidth, currentValue);
     }
   };
 
@@ -378,9 +375,7 @@ var onScalePinElementMousedown = function (evt) {
 
 scalePinElement.addEventListener('mousedown', onScalePinElementMousedown);
 
-var uploadLevelPin2 = function (coeficient) {
-  var imgEffect = imgUploadPreview.querySelector('img');
-  var value = imgEffect.className.substring(18);
+var uploadLevelPin = function (coeficient, value) {
 
   if (value === 'chrome') {
     imgUploadPreview.setAttribute('style', 'filter: grayscale(' + 1 * coeficient + ')');
