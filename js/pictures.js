@@ -1,5 +1,5 @@
 'use strict';
-
+// первый модуль
 var COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -21,7 +21,6 @@ var DESCRIPTIONS = [
 var randomNumber = function (a, b) {
   return a + Math.round((b - a) * Math.random());
 };
-
 var getArrayPictures = function () {
   var tempPictures = [];
   for (var i = 1; i < 26; i++) {
@@ -38,6 +37,8 @@ var getArrayPictures = function () {
   }
   return tempPictures;
 };
+
+// второй модуль
 
 var renderPicture = function (picture, index) {
   var pictureTemplate = document.querySelector('#picture').content;
@@ -58,28 +59,19 @@ var paintingPictures = function (array) {
   picturesDraw.appendChild(fragment);
 };
 
-var addComment = function (index, array, commentIndex) {
-  var element = document.createElement('li');
+var arrayPictures = [];
 
-  element.classList.add('social__comment');
-  element.classList.add('social__comment--text');
-  element.textContent = array[index].comment[commentIndex];
-
-  var avatar = document.createElement('img');
-  avatar.className = 'social__picture';
-  avatar.src = 'img/avatar-' + randomNumber(1, 6) + '.svg';
-  avatar.alt = 'Аватар комментатора фотографии';
-  avatar.width = 35;
-  avatar.height = 35;
-  element.insertBefore(avatar, element.firstChild);
-
-  return element;
+var initPictures = function () {
+  var pictures = getArrayPictures();
+  paintingPictures(pictures);
+  arrayPictures = pictures;
 };
 
-var drawNewComments = function (commentsToDraw) {
-  var socialCommentsDraw = document.querySelector('.social__comments');
-  socialCommentsDraw.appendChild(commentsToDraw);
-};
+initPictures();
+
+// конец первой задачи
+
+// третий модуль
 
 var showBigPicture = function (url, indexId, array) {
   var bigPicture = document.querySelector('.big-picture');
@@ -92,6 +84,11 @@ var showBigPicture = function (url, indexId, array) {
     commentElements[j] = addComment(indexId, array, j);
     drawNewComments(commentElements[j]);
   }
+};
+
+var drawNewComments = function (commentsToDraw) {
+  var socialCommentsDraw = document.querySelector('.social__comments');
+  socialCommentsDraw.appendChild(commentsToDraw);
 };
 
 var clearComments = function () {
@@ -111,15 +108,23 @@ var showSocialComments = function () {
   socialCommentLoadmore.classList.add('visually-hidden');
 };
 
-var arrayPictures = [];
+var addComment = function (index, array, commentIndex) {
+  var element = document.createElement('li');
 
-var initPictures = function () {
-  var pictures = getArrayPictures();
-  paintingPictures(pictures);
-  arrayPictures = pictures;
+  element.classList.add('social__comment');
+  element.classList.add('social__comment--text');
+  element.textContent = array[index].comment[commentIndex];
+
+  var avatar = document.createElement('img');
+  avatar.className = 'social__picture';
+  avatar.src = 'img/avatar-' + randomNumber(1, 6) + '.svg';
+  avatar.alt = 'Аватар комментатора фотографии';
+  avatar.width = 35;
+  avatar.height = 35;
+  element.insertBefore(avatar, element.firstChild);
+
+  return element;
 };
-
-initPictures();
 
 // 4 Задание
 
