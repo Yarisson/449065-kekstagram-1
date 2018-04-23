@@ -196,7 +196,7 @@ var uploadCancelClickEsc = function (evt) {
   }
 };
 
-var onUploadFileClickHandler = function () {
+var onUploadFileClick = function () {
   imgUploadScale.classList.add('hidden');
   resizeControlValue.setAttribute('value', '100%');
   imgUploadOverlay.classList.remove('hidden');
@@ -234,7 +234,7 @@ var onResizeMinus = function () {
 
 clickPictures(pictureLink);
 
-uploadFile.addEventListener('change', onUploadFileClickHandler);
+uploadFile.addEventListener('change', onUploadFileClick);
 imgUploadEffects.addEventListener('click', onUploadEffectsClick);
 resizeControlPlus.addEventListener('click', onResizePlus);
 resizeControlMinus.addEventListener('click', onResizeMinus);
