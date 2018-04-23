@@ -196,7 +196,7 @@ var uploadCancelClickEsc = function (evt) {
   }
 };
 
-var uploadFileClickHandler = function () {
+var onUploadFileClickHandler = function () {
   imgUploadScale.classList.add('hidden');
   resizeControlValue.setAttribute('value', '100%');
   imgUploadOverlay.classList.remove('hidden');
@@ -214,7 +214,7 @@ var onUploadEffectsClick = function (evt) {
   uploadLevelPin(FILTER_COEFFICIENT_MAX, filterValue);
 };
 
-var resizePlus = function () {
+var onResizePlus = function () {
   var sizeValue = parseInt(resizeControlValue.value, 10);
   if (sizeValue < MAX_SIZE) {
     sizeValue = (sizeValue + SIZE_STEP);
@@ -223,7 +223,7 @@ var resizePlus = function () {
   }
 };
 
-var resizeMinus = function () {
+var onResizeMinus = function () {
   var sizeValue = parseInt(resizeControlValue.value, 10);
   if (sizeValue > SIZE_STEP) {
     sizeValue = (sizeValue - SIZE_STEP);
@@ -234,10 +234,10 @@ var resizeMinus = function () {
 
 clickPictures(pictureLink);
 
-uploadFile.addEventListener('change', uploadFileClickHandler);
+uploadFile.addEventListener('change', onUploadFileClickHandler);
 imgUploadEffects.addEventListener('click', onUploadEffectsClick);
-resizeControlPlus.addEventListener('click', resizePlus);
-resizeControlMinus.addEventListener('click', resizeMinus);
+resizeControlPlus.addEventListener('click', onResizePlus);
+resizeControlMinus.addEventListener('click', onResizeMinus);
 
 var MAX_HASHTAG_LENGTH = 20;
 var MAX_NUMBER_OF_HASHTAGS = 5;
