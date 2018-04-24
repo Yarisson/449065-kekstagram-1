@@ -1,7 +1,8 @@
 'use strict';
-// второй модуль - отрисовка фотографии
 
 (function () {
+  var arrayPictures = [];
+
   var renderPicture = function (picture, index) {
     var pictureTemplate = document.querySelector('#picture').content;
     var pictureElement = pictureTemplate.cloneNode(true);
@@ -22,9 +23,15 @@
   };
 
   var initPictures = function () {
-    var pictures = window.generatePictures.getArrayPictures();
+    var pictures = window.data.getArrayPictures();
     paintingPictures(pictures);
+    arrayPictures = pictures;
   };
 
   initPictures();
+
+  window.picture = {
+    arrayPictures: arrayPictures
+  };
+
 })();

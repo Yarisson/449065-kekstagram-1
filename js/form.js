@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var MAX_HASHTAG_LENGTH = 20;
   var MAX_NUMBER_OF_HASHTAGS = 5;

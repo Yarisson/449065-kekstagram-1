@@ -1,12 +1,11 @@
 'use strict';
 
-// четвертый модуль - загрузка новой фотографии и обработка
-
 (function () {
   var ESC = 27;
-
   var SIZE_STEP = 25;
   var MAX_SIZE = 100;
+  var SCALE_WIDTH = 455;
+  var FILTER_COEFFICIENT_MAX = 1;
   var uploadFile = document.querySelector('#upload-file');
   var imgUploadEffects = document.querySelector('.img-upload__effects');
   var resizeControlValue = document.querySelector('.resize__control--value');
@@ -71,14 +70,6 @@
       imgEffect.style.transform = 'scale(' + sizeValue / MAX_SIZE + ')';
     }
   };
-
-  uploadFile.addEventListener('change', onUploadFileClick);
-  imgUploadEffects.addEventListener('click', onUploadEffectsClick);
-  resizeControlPlus.addEventListener('click', onResizePlus);
-  resizeControlMinus.addEventListener('click', onResizeMinus);
-
-  var SCALE_WIDTH = 455;
-  var FILTER_COEFFICIENT_MAX = 1;
 
   var uploadLevelPin = function (coeficient, value) {
     if (value === 'chrome') {
@@ -161,6 +152,10 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
+  uploadFile.addEventListener('change', onUploadFileClick);
+  imgUploadEffects.addEventListener('click', onUploadEffectsClick);
+  resizeControlPlus.addEventListener('click', onResizePlus);
+  resizeControlMinus.addEventListener('click', onResizeMinus);
   scalePinElement.addEventListener('mousedown', onScalePinElementMousedown);
 
 })();

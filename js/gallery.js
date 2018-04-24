@@ -1,10 +1,7 @@
 'use strict';
-// третий модуль - работа с фотографиями и увеличенная фотография по клику
 
 (function () {
-
   var ESC = 27;
-
   var pictureStatComments = document.querySelectorAll('.picture__stat--comments');
   var pictureStatLikes = document.querySelectorAll('.picture__stat--likes');
   var socialComments = document.querySelector('.social__comments');
@@ -38,7 +35,7 @@
     var avatar = document.createElement('img');
 
     avatar.className = 'social__picture';
-    avatar.src = 'img/avatar-' + window.generatePictures.randomNumber(1, 6) + '.svg';
+    avatar.src = 'img/avatar-' + window.data.randomNumber(1, 6) + '.svg';
     avatar.alt = 'Аватар комментатора фотографии';
     avatar.width = 35;
     avatar.height = 35;
@@ -87,7 +84,7 @@
     var currentId = evt.target.getAttribute('data-element-id');
     var imgSrc = evt.target.getAttribute('src');
     var bigPictureCancel = document.querySelector('.big-picture__cancel');
-    showBigPicture(imgSrc, currentId, window.generatePictures.tempPictures);
+    showBigPicture(imgSrc, currentId, window.picture.arrayPictures);
     showSocialComments();
     document.querySelector('.social__comment-count').classList.add('hidden');
     document.querySelector('.social__comment-loadmore').classList.add('hidden');
