@@ -3,6 +3,8 @@
 
 (function () {
 
+  var ESC = 27;
+
   var pictureStatComments = document.querySelectorAll('.picture__stat--comments');
   var pictureStatLikes = document.querySelectorAll('.picture__stat--likes');
   var socialComments = document.querySelector('.social__comments');
@@ -71,7 +73,7 @@
   };
 
   var bigPictureCancelClickEsc = function (evt) {
-    if (evt.keyCode === window.gallery.ESC) {
+    if (evt.keyCode === ESC) {
       var bigPicture = document.querySelector('.big-picture');
       bigPicture.classList.add('hidden');
       document.body.classList.remove('modal-open');

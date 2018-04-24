@@ -2,34 +2,8 @@
 
 // четвертый модуль - загрузка новой фотографии и обработка
 
-window.uploadFile = (function () {
-  var ESC = 27;
-
-  var imgUploadOverlay = document.querySelector('.img-upload__overlay');
-  var imgUploadCancel = document.querySelector('.img-upload__cancel');
-
-  return {
-    uploadCancelClickEsc: function (evt) {
-      if (evt.keyCode === ESC) {
-        imgUploadOverlay.classList.add('hidden');
-        document.removeEventListener('keydown', window.uploadFile.uploadCancelClickEsc);
-        imgUploadCancel.removeEventListener('click', window.uploadFile.uploadCancelClickHandler);
-        document.querySelector('#upload-file').value = '';
-      }
-    },
-    uploadCancelClickHandler: function (evt) {
-      if (evt.keyCode === window.gallery.ESC) {
-        imgUploadOverlay.classList.add('hidden');
-        document.removeEventListener('keydown', window.uploadFile.uploadCancelClickEsc);
-        imgUploadCancel.removeEventListener('click', window.uploadFile.uploadCancelClickHandler);
-        document.querySelector('#upload-file').value = '';
-      }
-    }
-  };
-
-})();
-
 (function () {
+  var ESC = 27;
 
   var SIZE_STEP = 25;
   var MAX_SIZE = 100;
@@ -54,7 +28,7 @@ window.uploadFile = (function () {
   };
 
   var uploadCancelClickEsc = function (evt) {
-    if (evt.keyCode === window.gallery.ESC) {
+    if (evt.keyCode === ESC) {
       imgUploadOverlay.classList.add('hidden');
       document.removeEventListener('keydown', uploadCancelClickEsc);
       imgUploadCancel.removeEventListener('click', uploadCancelClickHandler);
