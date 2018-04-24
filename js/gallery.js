@@ -1,10 +1,6 @@
 'use strict';
 // третий модуль - работа с фотографиями и увеличенная фотография по клику
 
-window.gallery = (function () {
-  var ESC = 27;
-})();
-
 (function () {
 
   var pictureStatComments = document.querySelectorAll('.picture__stat--comments');

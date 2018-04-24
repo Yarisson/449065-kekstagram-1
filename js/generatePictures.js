@@ -1,5 +1,5 @@
 'use strict';
-// первый модуль
+// первый модуль - исходные данные, генерация фотографий
 
 window.generatePictures = (function () {
 
