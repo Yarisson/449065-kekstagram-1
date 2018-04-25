@@ -22,7 +22,6 @@
   };
 
   var onInputHashTagsBlur = function () {
-    setClearMessageToHashTags();
     document.addEventListener('keydown', window.preview.uploadCancelClickEsc);
   };
 
