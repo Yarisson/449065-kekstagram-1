@@ -92,12 +92,12 @@
     document.addEventListener('keydown', bigPictureCancelClickEsc);
   };
 
-  var clickPictures = function (array) {
+  var addEventListenerOnPictures = function (array) {
     for (var i = 0; i < array.length; i++) {
       array[i].addEventListener('click', pictureClickHandler);
     }
   };
 
-  clickPictures(pictureLink);
+  addEventListenerOnPictures(pictureLink);
 
 })();

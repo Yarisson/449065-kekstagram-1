@@ -158,5 +158,8 @@
   resizeControlMinus.addEventListener('click', onResizeMinus);
   scalePinElement.addEventListener('mousedown', onScalePinElementMousedown);
 
+  window.preview = {
+    uploadCancelClickEsc: uploadCancelClickEsc
+  };
 })();
 

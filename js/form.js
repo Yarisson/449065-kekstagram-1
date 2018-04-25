@@ -13,19 +13,19 @@
   };
 
   var onInputHashTagsFocus = function () {
-    document.removeEventListener('keydown', window.uploadFile.uploadCancelClickEsc);
+    document.removeEventListener('keydown', window.preview.uploadCancelClickEsc);
   };
 
   var onInputHashTagsBlur = function () {
-    document.addEventListener('keydown', window.uploadFile.uploadCancelClickEsc);
+    document.addEventListener('keydown', window.preview.uploadCancelClickEsc);
   };
 
   var onTextareaFocus = function () {
-    document.removeEventListener('keydown', window.uploadFile.uploadCancelClickEsc);
+    document.removeEventListener('keydown', window.preview.uploadCancelClickEsc);
   };
 
   var onTextareaBlur = function () {
-    document.addEventListener('keydown', window.uploadFile.uploadCancelClickEsc);
+    document.addEventListener('keydown', window.preview.uploadCancelClickEsc);
   };
 
   var validateHashTags = function () {
