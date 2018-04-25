@@ -60,8 +60,7 @@
     }
   };
 
-  var onButtonFormClick = function (evt) {
-    evt.preventDefault();
+  var onButtonFormClick = function () {
     setClearMessageToHashTags();
     validateHashTags();
   };
