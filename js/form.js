@@ -17,6 +17,8 @@
   };
 
   var onInputHashTagsBlur = function () {
+    setErrorMessageToHashTags('');
+    inputHashTagsElement.style.border = 'none';
     document.addEventListener('keydown', window.preview.uploadCancelClickEsc);
   };
 
