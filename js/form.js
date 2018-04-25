@@ -12,13 +12,17 @@
     inputHashTagsElement.style.border = '2px solid red';
   };
 
+  var setClearMessageToHashTags = function () {
+    inputHashTagsElement.setCustomValidity('');
+    inputHashTagsElement.style.border = 'none';
+  };
+
   var onInputHashTagsFocus = function () {
     document.removeEventListener('keydown', window.preview.uploadCancelClickEsc);
   };
 
   var onInputHashTagsBlur = function () {
-    setErrorMessageToHashTags('');
-    inputHashTagsElement.style.border = 'none';
+    setClearMessageToHashTags();
     document.addEventListener('keydown', window.preview.uploadCancelClickEsc);
   };
 
