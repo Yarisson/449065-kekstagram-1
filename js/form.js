@@ -6,6 +6,8 @@
   var buttonSubmitElement = document.querySelector('.img-upload__submit');
   var inputHashTagsElement = document.querySelector('.text__hashtags');
   var textareaCommentsElement = document.querySelector('.text__description');
+  var imgUploadOverlay = document.querySelector('.img-upload__overlay');
+  var form = document.querySelector('.img-upload__form');
 
   var setErrorMessageToHashTags = function (message) {
     inputHashTagsElement.setCustomValidity(message);
@@ -63,6 +65,12 @@
   var onButtonFormClick = function () {
     setClearMessageToHashTags();
     validateHashTags();
+    form.addEventListener('submit', function (evt) {
+      window.upload.backend(new FormData(form), function (response) {
+        imgUploadOverlay.classList.add('hidden');
+      });
+      evt.preventDefault();
+    });
   };
 
   inputHashTagsElement.addEventListener('focus', onInputHashTagsFocus);
@@ -72,4 +80,3 @@
   textareaCommentsElement.addEventListener('blur', onTextareaBlur);
 
 })();
-

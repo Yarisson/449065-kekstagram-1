@@ -23,7 +23,7 @@
   };
 
   var initPictures = function () {
-    var pictures = window.data.getArrayPictures();
+    var pictures = window.backend.load();
     paintingPictures(pictures);
     arrayPictures = pictures;
   };
