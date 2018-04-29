@@ -22,6 +22,17 @@
     picturesDraw.appendChild(fragment);
   };
 
+  /* window.backend.load(function (pictures) {
+    var picturesDraw = document.querySelector('.pictures');
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0; i < pictures.length; i++) {
+      fragment.appendChild(renderPicture(pictures[i]));
+    }
+    picturesDraw.appendChild(fragment);
+    arrayPictures = pictures;
+  }); */
+
   var initPictures = function () {
     var pictures = window.backend.load();
     paintingPictures(pictures);
