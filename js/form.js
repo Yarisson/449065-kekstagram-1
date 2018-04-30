@@ -66,10 +66,14 @@
     setClearMessageToHashTags();
     validateHashTags();
     form.addEventListener('submit', function (evt) {
-      window.upload.backend(new FormData(form), function (response) {
+      window.upload.backend(new FormData(form), function (onLoad) {
         imgUploadOverlay.classList.add('hidden');
+        evt.preventDefault();
+
+      }, function (errorMessage) {
+        window.picture.elementErrorShow(errorMessage);
       });
-      evt.preventDefault();
+
     });
   };
 

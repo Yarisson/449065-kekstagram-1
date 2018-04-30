@@ -13,6 +13,20 @@
     return pictureElement;
   };
 
+  var elementErrorShow = function (Message) {
+    var elementError = document.createElement('div');
+    elementError.classList.add('server__error');
+
+    var elementErrorText = document.createElement('h2');
+
+    elementErrorText.className = 'server__error__message';
+    elementErrorText.textContent = Message;
+
+    elementError.insertBefore(elementErrorText, elementError.firstChild);
+
+    return elementError;
+  };
+
   var paintingPictures = function (array) {
     var picturesDraw = document.querySelector('.pictures');
     var fragment = document.createDocumentFragment();
@@ -29,6 +43,7 @@
       arrayPictures = window.gallery.picturesArrayServer;
     },
     function (errorMessage) {
+      elementErrorShow(errorMessage);
     }
     );
   };
@@ -36,7 +51,8 @@
   initPictures();
 
   window.picture = {
-    arrayPictures: arrayPictures
+    arrayPictures: arrayPictures,
+    elementErrorShow: elementErrorShow
   };
 
 })();
