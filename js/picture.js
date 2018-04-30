@@ -26,9 +26,8 @@
     window.backend.load(function (pictures) {
       paintingPictures(pictures);
       arrayPictures = pictures;
-      return arrayPictures;
     },
-    function (onError) {
+    function (errorMessage) {
     }
     );
   };

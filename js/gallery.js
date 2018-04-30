@@ -5,7 +5,6 @@
   var pictureStatComments = document.querySelectorAll('.picture__stat--comments');
   var pictureStatLikes = document.querySelectorAll('.picture__stat--likes');
   var socialComments = document.querySelector('.social__comments');
-  var pictureLink = document.querySelectorAll('.picture__link');
 
   var showBigPicture = function (url, indexId, array) {
     var bigPicture = document.querySelector('.big-picture');
@@ -92,12 +91,16 @@
     document.addEventListener('keydown', bigPictureCancelClickEsc);
   };
 
-  var addEventListenerOnPictures = function (array) {
+  var addEventListenerOnPictures = function () {
+    var array = document.querySelectorAll('.picture-link');
     for (var i = 0; i < array.length; i++) {
       array[i].addEventListener('click', pictureClickHandler);
     }
   };
 
-  addEventListenerOnPictures(pictureLink);
+  addEventListenerOnPictures();
 
+  window.gallery = {
+    addEventListenerOnPictures: addEventListenerOnPictures
+  };
 })();
