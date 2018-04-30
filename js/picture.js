@@ -25,7 +25,8 @@
   var initPictures = function () {
     window.backend.load(function (pictures) {
       paintingPictures(pictures);
-      arrayPictures = pictures;
+      window.gallery.addEventListenerOnPictures();
+      arrayPictures = window.gallery.picturesArrayServer;
     },
     function (errorMessage) {
     }
