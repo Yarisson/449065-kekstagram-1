@@ -39,7 +39,7 @@
   var initPictures = function () {
     window.backend.load(function (pictures) {
       paintingPictures(pictures);
-      arrayPictures = pictures;
+      window.picture.arrayPictures = pictures;
       window.gallery.addEventListenerOnPictures();
     },
     function (errorMessage) {

@@ -13,6 +13,7 @@
     document.querySelector('.big-picture__img').querySelector('img').setAttribute('src', url);
     document.querySelector('.likes-count').textContent = pictureStatLikes[indexId].textContent;
     document.querySelector('.comments-count').textContent = pictureStatComments[indexId].textContent;
+    document.querySelector('.social__caption').textContent = array[indexId].comments[0];
     var commentElements = [];
     for (var j = 0; j < array[indexId].comments.length; j++) {
       commentElements[j] = addComment(indexId, array, j);
@@ -30,7 +31,7 @@
 
     element.classList.add('social__comment');
     element.classList.add('social__comment--text');
-    element.textContent = array[index].comment[commentIndex];
+    element.textContent = array[index].comments[commentIndex];
 
     var avatar = document.createElement('img');
 

@@ -99,6 +99,13 @@
     }
   };
 
+  var resetImgEffect = function () {
+    imgEffect.classList.add('effects__preview--none');
+    imgUploadScale.classList.add('hidden');
+    imgUploadPreview.setAttribute('style', 'filter: none');
+    imgUploadOverlay.classList.add('hidden');
+  };
+
   var setupSliderScalePosition = function (scalePosition, width, filterCoefficient, value) {
     if (scalePosition >= SCALE_WIDTH) {
       scalePinElement.style.left = SCALE_WIDTH + 'px';
@@ -159,7 +166,8 @@
   scalePinElement.addEventListener('mousedown', onScalePinElementMousedown);
 
   window.preview = {
-    uploadCancelClickEsc: uploadCancelClickEsc
+    uploadCancelClickEsc: uploadCancelClickEsc,
+    resetImgEffect: resetImgEffect
   };
 })();
 
