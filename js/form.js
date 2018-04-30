@@ -66,9 +66,9 @@
     setClearMessageToHashTags();
     validateHashTags();
     form.addEventListener('submit', function (evt) {
-      window.upload.backend(new FormData(form), function (onLoad) {
+      evt.preventDefault();
+      window.backend.upload(new FormData(form), function () {
         imgUploadOverlay.classList.add('hidden');
-        evt.preventDefault();
 
       }, function (errorMessage) {
         window.picture.elementErrorShow(errorMessage);
