@@ -6,6 +6,13 @@
   var buttonSubmitElement = document.querySelector('.img-upload__submit');
   var inputHashTagsElement = document.querySelector('.text__hashtags');
   var textareaCommentsElement = document.querySelector('.text__description');
+  var imgUploadOverlay = document.querySelector('.img-upload__overlay');
+  var form = document.querySelector('.img-upload__form');
+
+  var resetFormTextClear = function () {
+    inputHashTagsElement.value = '';
+    textareaCommentsElement.value = '';
+  };
 
   var setErrorMessageToHashTags = function (message) {
     inputHashTagsElement.setCustomValidity(message);
@@ -37,12 +44,17 @@
     var SEPARATOR = ' ';
     var hashTagString = inputHashTagsElement.value.toLowerCase();
     var hashTagsArray = hashTagString.split(SEPARATOR);
+
     if (hashTagsArray.length > MAX_NUMBER_OF_HASHTAGS) {
       setErrorMessageToHashTags('Количество хэш-тегов не может быть больше 5');
       return;
     }
     for (var i = 0; i < hashTagsArray.length; i++) {
+
       if (hashTagsArray[i].charAt(0) !== '#') {
+        if (hashTagsArray.length === 1 && hashTagsArray[0] === '') {
+          return;
+        }
         setErrorMessageToHashTags('Отсутствует символ # в начале хэш-тега');
         return;
       }
@@ -61,8 +73,20 @@
   };
 
   var onButtonFormClick = function () {
+    var imgUploadMessageError = document.querySelector('.img-upload__message--error');
     setClearMessageToHashTags();
     validateHashTags();
+    form.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+      window.backend.upload(new FormData(form), function () {
+        resetFormTextClear();
+        window.preview.resetImgEffect();
+        imgUploadOverlay.classList.add('hidden');
+      }, function () {
+        imgUploadMessageError.classList.remove('.hidden');
+      });
+
+    });
   };
 
   inputHashTagsElement.addEventListener('focus', onInputHashTagsFocus);
@@ -72,4 +96,3 @@
   textareaCommentsElement.addEventListener('blur', onTextareaBlur);
 
 })();
-

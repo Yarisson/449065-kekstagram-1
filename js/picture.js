@@ -8,9 +8,23 @@
     var pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').setAttribute('src', picture.url);
     pictureElement.querySelector('.picture__img').setAttribute('data-element-id', index);
-    pictureElement.querySelector('.picture__stat--comments').textContent = picture.comment.length;
+    pictureElement.querySelector('.picture__stat--comments').textContent = picture.comments.length;
     pictureElement.querySelector('.picture__stat--likes').textContent = picture.likes;
     return pictureElement;
+  };
+
+  var elementErrorShow = function (Message) {
+    var elementError = document.createElement('div');
+    elementError.classList.add('server__error');
+
+    var elementErrorText = document.createElement('h2');
+
+    elementErrorText.className = 'server__error__message';
+    elementErrorText.textContent = Message;
+
+    elementError.insertBefore(elementErrorText, elementError.firstChild);
+
+    return elementError;
   };
 
   var paintingPictures = function (array) {
@@ -23,15 +37,22 @@
   };
 
   var initPictures = function () {
-    var pictures = window.data.getArrayPictures();
-    paintingPictures(pictures);
-    arrayPictures = pictures;
+    window.backend.load(function (pictures) {
+      paintingPictures(pictures);
+      window.picture.arrayPictures = pictures;
+      window.gallery.addEventListenerOnPictures();
+    },
+    function (errorMessage) {
+      elementErrorShow(errorMessage);
+    }
+    );
   };
 
   initPictures();
 
   window.picture = {
-    arrayPictures: arrayPictures
+    arrayPictures: arrayPictures,
+    elementErrorShow: elementErrorShow
   };
 
 })();

@@ -42,6 +42,7 @@
 
   window.data = {
     randomNumber: randomNumber,
-    getArrayPictures: getArrayPictures
+    getArrayPictures: getArrayPictures,
+    COMMENTS: COMMENTS
   };
 })();

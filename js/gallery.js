@@ -2,19 +2,20 @@
 
 (function () {
   var ESC = 27;
-  var pictureStatComments = document.querySelectorAll('.picture__stat--comments');
-  var pictureStatLikes = document.querySelectorAll('.picture__stat--likes');
+  // var pictureStatLikes = document.querySelectorAll('.picture__stat--likes');
   var socialComments = document.querySelector('.social__comments');
-  var pictureLink = document.querySelectorAll('.picture__link');
 
   var showBigPicture = function (url, indexId, array) {
+    var pictureStatLikes = document.querySelectorAll('.picture__stat--likes');
+    var pictureStatComments = document.querySelectorAll('.picture__stat--comments');
     var bigPicture = document.querySelector('.big-picture');
     bigPicture.classList.remove('hidden');
     document.querySelector('.big-picture__img').querySelector('img').setAttribute('src', url);
     document.querySelector('.likes-count').textContent = pictureStatLikes[indexId].textContent;
     document.querySelector('.comments-count').textContent = pictureStatComments[indexId].textContent;
+    document.querySelector('.social__caption').textContent = array[indexId].comments[0];
     var commentElements = [];
-    for (var j = 0; j < array[indexId].comment.length; j++) {
+    for (var j = 0; j < array[indexId].comments.length; j++) {
       commentElements[j] = addComment(indexId, array, j);
       drawNewComments(commentElements[j]);
     }
@@ -30,7 +31,7 @@
 
     element.classList.add('social__comment');
     element.classList.add('social__comment--text');
-    element.textContent = array[index].comment[commentIndex];
+    element.textContent = array[index].comments[commentIndex];
 
     var avatar = document.createElement('img');
 
@@ -92,12 +93,14 @@
     document.addEventListener('keydown', bigPictureCancelClickEsc);
   };
 
-  var addEventListenerOnPictures = function (array) {
+  var addEventListenerOnPictures = function () {
+    var array = document.querySelectorAll('.picture__link');
     for (var i = 0; i < array.length; i++) {
       array[i].addEventListener('click', pictureClickHandler);
     }
   };
 
-  addEventListenerOnPictures(pictureLink);
-
+  window.gallery = {
+    addEventListenerOnPictures: addEventListenerOnPictures,
+  };
 })();
