@@ -10,8 +10,8 @@
   var form = document.querySelector('.img-upload__form');
 
   var resetFormTextClear = function () {
-    inputHashTagsElement.textContent = '';
-    inputHashTagsElement.textContent = '';
+    inputHashTagsElement.value = '';
+    textareaCommentsElement.value = '';
   };
 
   var setErrorMessageToHashTags = function (message) {

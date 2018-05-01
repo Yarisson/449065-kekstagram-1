@@ -100,8 +100,11 @@
   };
 
   var resetImgEffect = function () {
-    imgEffect.classList.add('effects__preview--none');
+    // imgEffect.classList.add('effects__preview--none');
     imgUploadScale.classList.add('hidden');
+    resizeControlValue.setAttribute('value', '100%');
+    imgEffect.style.transform = 'scale(' + 1 + ')';
+    imgEffect.classList.remove('effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--phobos', 'effects__preview--marvin', 'effects__preview--heat', 'effects__preview--none');
     imgUploadPreview.setAttribute('style', 'filter: none');
     imgUploadOverlay.classList.add('hidden');
   };
