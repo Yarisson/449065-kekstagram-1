@@ -121,8 +121,8 @@
 
   var initPictures = function () {
     window.backend.load(function (pictures) {
+      pictures.length = 25;
       imgFilters.classList.remove('img-filters--inactive');
-      pictures = pictures.pop();
       paintingPictures(pictures);
       window.picture.arrayNotSorted = pictures.slice(0);
       window.picture.arrayPictures = pictures;
