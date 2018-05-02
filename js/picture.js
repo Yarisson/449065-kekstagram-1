@@ -30,8 +30,7 @@
       // a должно быть равным b
       return 0;
     });
-    paintingPictures(array);
-    window.debounce(onFilterPopularClick);
+    window.debounce(paintingPictures(array));
   };
 
   var sortArrayComments = function (array) {
@@ -45,8 +44,7 @@
       // a должно быть равным b
       return 0;
     });
-    paintingPictures(array);
-    window.debounce(onFilterDiscussedClick);
+    window.debounce(paintingPictures(array));
   };
 
   var onFilterPopularClick = function () {
@@ -69,7 +67,7 @@
     filterNew.classList.add('img-filters__button--active');
     filterPopular.classList.remove('img-filters__button--active');
     filterDiscussed.classList.remove('img-filters__button--active');
-    paintingPictures(window.picture.arrayNotSorted);
+    window.debounce(paintingPictures(window.picture.arrayNotSorted));
     window.gallery.addEventListenerOnPictures();
   };
 
@@ -116,7 +114,6 @@
       fragment.appendChild(renderPicture(array[i], i));
     }
     picturesDraw.appendChild(fragment);
-    window.debounce(onFilterNewClick);
   };
 
   var initPictures = function () {
