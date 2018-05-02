@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var DEBOUNCE_INTERVAL = 500;
+  var lastTimeout;
   var arrayPictures = [];
   var arrayNotSorted = [];
 
@@ -9,6 +11,13 @@
   var filterNew = document.querySelector('#filter-new');
   var filterDiscussed = document.querySelector('#filter-discussed');
   var pictureLinks = document.querySelectorAll('.picture__link');
+
+  window.debounce = function (fun) {
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    lastTimeout = window.setTimeout(fun, DEBOUNCE_INTERVAL);
+  };
 
   var sortArrayLikes = function (array) {
     array.sort(function (a, b) {
@@ -22,6 +31,7 @@
       return 0;
     });
     paintingPictures(array);
+    window.debounce(onFilterPopularClick);
   };
 
   var sortArrayComments = function (array) {
@@ -36,6 +46,7 @@
       return 0;
     });
     paintingPictures(array);
+    window.debounce(onFilterDiscussedClick);
   };
 
   var onFilterPopularClick = function () {
@@ -105,11 +116,13 @@
       fragment.appendChild(renderPicture(array[i], i));
     }
     picturesDraw.appendChild(fragment);
+    window.debounce(onFilterNewClick);
   };
 
   var initPictures = function () {
     window.backend.load(function (pictures) {
       imgFilters.classList.remove('img-filters--inactive');
+      pictures = pictures.pop();
       paintingPictures(pictures);
       window.picture.arrayNotSorted = pictures.slice(0);
       window.picture.arrayPictures = pictures;
