@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var DEBOUNCE_INTERVAL = 500;
-  var lastTimeout;
   var arrayPictures = [];
   var arrayNotSorted = [];
 
@@ -11,13 +9,6 @@
   var filterNew = document.querySelector('#filter-new');
   var filterDiscussed = document.querySelector('#filter-discussed');
   var pictureLinks = document.querySelectorAll('.picture__link');
-
-  window.debounce = function (fun) {
-    if (lastTimeout) {
-      window.clearTimeout(lastTimeout);
-    }
-    lastTimeout = window.setTimeout(fun, DEBOUNCE_INTERVAL);
-  };
 
   var sortArrayLikes = function (array) {
     array.sort(function (a, b) {
@@ -30,7 +21,7 @@
       // a должно быть равным b
       return 0;
     });
-    window.debounce(paintingPictures(array));
+    window.debounce.debounce(paintingPictures(array));
   };
 
   var sortArrayComments = function (array) {
@@ -44,7 +35,7 @@
       // a должно быть равным b
       return 0;
     });
-    window.debounce(paintingPictures(array));
+    window.debounce.debounce(paintingPictures(array));
   };
 
   var onFilterPopularClick = function () {
@@ -67,7 +58,7 @@
     filterNew.classList.add('img-filters__button--active');
     filterPopular.classList.remove('img-filters__button--active');
     filterDiscussed.classList.remove('img-filters__button--active');
-    window.debounce(paintingPictures(window.picture.arrayNotSorted));
+    window.debounce.debounce(paintingPictures(window.picture.arrayNotSorted));
     window.gallery.addEventListenerOnPictures();
   };
 
