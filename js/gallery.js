@@ -2,7 +2,6 @@
 
 (function () {
   var ESC = 27;
-  // var pictureStatLikes = document.querySelectorAll('.picture__stat--likes');
   var socialComments = document.querySelector('.social__comments');
 
   var showBigPicture = function (url, indexId, array) {

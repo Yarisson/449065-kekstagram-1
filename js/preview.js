@@ -100,7 +100,6 @@
   };
 
   var resetImgEffect = function () {
-    // imgEffect.classList.add('effects__preview--none');
     imgUploadScale.classList.add('hidden');
     resizeControlValue.setAttribute('value', '100%');
     imgEffect.style.transform = 'scale(' + 1 + ')';
@@ -173,4 +172,3 @@
     resetImgEffect: resetImgEffect
   };
 })();
-
