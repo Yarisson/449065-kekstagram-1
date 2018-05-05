@@ -35,8 +35,7 @@
     }
   };
 
-  var onUploadFileClick = function (evt) {
-    evt.preventDefault();
+  var onUploadFileClick = function () {
     imgUploadScale.classList.add('hidden');
     resizeControlValue.setAttribute('value', '100%');
     imgUploadOverlay.classList.remove('hidden');
