@@ -11,11 +11,11 @@
   var pictureLinks = document.querySelectorAll('.picture__link');
 
   var sortArrayLikes = function (array) {
-    array.sort(function (a, b) {
-      if (a.likes > b.likes) {
+    array.sort(function (previousArrayElement, currentArrayElement) {
+      if (previousArrayElement.likes > currentArrayElement.likes) {
         return -1;
       }
-      if (a.likes < b.likes) {
+      if (previousArrayElement.likes < currentArrayElement.likes) {
         return 1;
       }
       return 0;
@@ -24,14 +24,13 @@
   };
 
   var sortArrayComments = function (array) {
-    array.sort(function (a, b) {
-      if (a.comments.length > b.comments.length) {
+    array.sort(function (previousArrayElement, currentArrayElement) {
+      if (previousArrayElement.comments.length > currentArrayElement.comments.length) {
         return -1;
       }
-      if (a.comments.length < b.comments.length) {
+      if (previousArrayElement.comments.length < currentArrayElement.comments.length) {
         return 1;
       }
-      // a должно быть равным b
       return 0;
     });
     window.debounce.debounce(drawPictures(array));

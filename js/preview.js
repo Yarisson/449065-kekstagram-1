@@ -35,12 +35,12 @@
     }
   };
 
-  var onUploadFileClick = function () {
+  var onUploadFileClick = function (evt) {
+    evt.preventDefault();
     imgUploadScale.classList.add('hidden');
     resizeControlValue.setAttribute('value', '100%');
     imgUploadOverlay.classList.remove('hidden');
     imgUploadCancel.addEventListener('click', uploadCancelClickHandler);
-
     document.addEventListener('keydown', uploadCancelClickEsc);
   };
 

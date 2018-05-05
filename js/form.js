@@ -58,6 +58,12 @@
         setErrorMessageToHashTags('Отсутствует символ # в начале хэш-тега');
         return;
       }
+
+      if (hashTagsArray[i].length < 2) {
+        setErrorMessageToHashTags('После символа # должен быть текст');
+        return;
+      }
+
       if (hashTagsArray[i].length > MAX_HASHTAG_LENGTH) {
         setErrorMessageToHashTags('Длина одного хэш-тега не должна быть больше символов 20');
         return;

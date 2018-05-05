@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var randomNumber = function (a, b) {
-    return a + Math.round((b - a) * Math.random());
+  var randomNumber = function (theSmallestNumber, theLargestNumber) {
+    return theSmallestNumber + Math.round((theLargestNumber - theSmallestNumber) * Math.random());
   };
 
   window.data = {
