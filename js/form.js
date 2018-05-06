@@ -3,6 +3,7 @@
 (function () {
   var MAX_HASHTAG_LENGTH = 20;
   var MAX_NUMBER_OF_HASHTAGS = 5;
+  var uploadFile = document.querySelector('#upload-file');
   var buttonSubmitElement = document.querySelector('.img-upload__submit');
   var inputHashTagsElement = document.querySelector('.text__hashtags');
   var textareaCommentsElement = document.querySelector('.text__description');
@@ -10,6 +11,7 @@
   var form = document.querySelector('.img-upload__form');
 
   var resetFormTextClear = function () {
+    uploadFile.value = '';
     inputHashTagsElement.value = '';
     textareaCommentsElement.value = '';
   };
