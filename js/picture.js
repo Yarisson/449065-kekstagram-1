@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var arrayPictures = [];
+  var data = [];
   var arrayNotSorted = [];
 
   var imgFilters = document.querySelector('.img-filters');
@@ -11,11 +11,11 @@
   var pictureLinks = document.querySelectorAll('.picture__link');
 
   var sortArrayLikes = function (array) {
-    array.sort(function (a, b) {
-      if (a.likes > b.likes) {
+    array.sort(function (previousArrayElement, currentArrayElement) {
+      if (previousArrayElement.likes > currentArrayElement.likes) {
         return -1;
       }
-      if (a.likes < b.likes) {
+      if (previousArrayElement.likes < currentArrayElement.likes) {
         return 1;
       }
       return 0;
@@ -24,14 +24,13 @@
   };
 
   var sortArrayComments = function (array) {
-    array.sort(function (a, b) {
-      if (a.comments.length > b.comments.length) {
+    array.sort(function (previousArrayElement, currentArrayElement) {
+      if (previousArrayElement.comments.length > currentArrayElement.comments.length) {
         return -1;
       }
-      if (a.comments.length < b.comments.length) {
+      if (previousArrayElement.comments.length < currentArrayElement.comments.length) {
         return 1;
       }
-      // a должно быть равным b
       return 0;
     });
     window.debounce.debounce(drawPictures(array));
@@ -45,7 +44,7 @@
     filterPopular.classList.add('img-filters__button--active');
     filterNew.classList.remove('img-filters__button--active');
     filterDiscussed.classList.remove('img-filters__button--active');
-    sortArrayLikes(window.picture.arrayPictures);
+    sortArrayLikes(window.picture.data);
     window.gallery.addEventListenerOnPictures();
   };
 
@@ -69,7 +68,7 @@
     filterDiscussed.classList.add('img-filters__button--active');
     filterNew.classList.remove('img-filters__button--active');
     filterPopular.classList.remove('img-filters__button--active');
-    sortArrayComments(window.picture.arrayPictures);
+    sortArrayComments(window.picture.data);
     window.gallery.addEventListenerOnPictures();
   };
 
@@ -112,7 +111,7 @@
       imgFilters.classList.remove('img-filters--inactive');
       drawPictures(pictures);
       window.picture.arrayNotSorted = pictures.slice(0);
-      window.picture.arrayPictures = pictures;
+      window.picture.data = pictures;
       window.gallery.addEventListenerOnPictures();
     },
     function (errorMessage) {
@@ -128,7 +127,7 @@
   filterDiscussed.addEventListener('click', onFilterDiscussedClick);
 
   window.picture = {
-    arrayPictures: arrayPictures,
+    data: data,
     elementErrorShow: elementErrorShow,
     pictureLinks: pictureLinks,
     arrayNotSorted: arrayNotSorted
