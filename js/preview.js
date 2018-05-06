@@ -19,10 +19,10 @@
   var scalePinElement = imgUploadScale.querySelector('.scale__pin');
   var scaleLevel = document.querySelector('.scale__level');
 
-  var uploadCancelClickHandler = function () {
+  var onUploadCancelClick = function () {
     imgUploadOverlay.classList.add('hidden');
     document.removeEventListener('keydown', onUploadCancelClickEsc);
-    imgUploadCancel.removeEventListener('click', uploadCancelClickHandler);
+    imgUploadCancel.removeEventListener('click', onUploadCancelClick);
     document.querySelector('#upload-file').value = '';
   };
 
@@ -30,7 +30,7 @@
     if (evt.keyCode === ESC) {
       imgUploadOverlay.classList.add('hidden');
       document.removeEventListener('keydown', onUploadCancelClickEsc);
-      imgUploadCancel.removeEventListener('click', uploadCancelClickHandler);
+      imgUploadCancel.removeEventListener('click', onUploadCancelClick);
       document.querySelector('#upload-file').value = '';
     }
   };
@@ -39,7 +39,7 @@
     imgUploadScale.classList.add('hidden');
     resizeControlValue.setAttribute('value', '100%');
     imgUploadOverlay.classList.remove('hidden');
-    imgUploadCancel.addEventListener('click', uploadCancelClickHandler);
+    imgUploadCancel.addEventListener('click', onUploadCancelClick);
     document.addEventListener('keydown', onUploadCancelClickEsc);
   };
 
