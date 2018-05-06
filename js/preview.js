@@ -21,7 +21,7 @@
 
   var uploadCancelClickHandler = function () {
     imgUploadOverlay.classList.add('hidden');
-    document.removeEventListener('keydown', uploadCancelClickEsc);
+    document.removeEventListener('keydown', window.preview.uploadCancelClickEsc);
     imgUploadCancel.removeEventListener('click', uploadCancelClickHandler);
     document.querySelector('#upload-file').value = '';
   };
@@ -29,7 +29,7 @@
   var uploadCancelClickEsc = function (evt) {
     if (evt.keyCode === ESC) {
       imgUploadOverlay.classList.add('hidden');
-      document.removeEventListener('keydown', uploadCancelClickEsc);
+      document.removeEventListener('keydown', window.preview.uploadCancelClickEsc);
       imgUploadCancel.removeEventListener('click', uploadCancelClickHandler);
       document.querySelector('#upload-file').value = '';
     }
@@ -40,7 +40,7 @@
     resizeControlValue.setAttribute('value', '100%');
     imgUploadOverlay.classList.remove('hidden');
     imgUploadCancel.addEventListener('click', uploadCancelClickHandler);
-    document.addEventListener('keydown', uploadCancelClickEsc);
+    document.addEventListener('keydown', window.preview.uploadCancelClickEsc);
   };
 
   var onUploadEffectsClick = function (evt) {

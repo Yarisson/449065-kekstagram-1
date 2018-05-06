@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var arrayPictures = [];
+  var data = [];
   var arrayNotSorted = [];
 
   var imgFilters = document.querySelector('.img-filters');
@@ -44,7 +44,7 @@
     filterPopular.classList.add('img-filters__button--active');
     filterNew.classList.remove('img-filters__button--active');
     filterDiscussed.classList.remove('img-filters__button--active');
-    sortArrayLikes(window.picture.arrayPictures);
+    sortArrayLikes(window.picture.data);
     window.gallery.addEventListenerOnPictures();
   };
 
@@ -68,7 +68,7 @@
     filterDiscussed.classList.add('img-filters__button--active');
     filterNew.classList.remove('img-filters__button--active');
     filterPopular.classList.remove('img-filters__button--active');
-    sortArrayComments(window.picture.arrayPictures);
+    sortArrayComments(window.picture.data);
     window.gallery.addEventListenerOnPictures();
   };
 
@@ -111,7 +111,7 @@
       imgFilters.classList.remove('img-filters--inactive');
       drawPictures(pictures);
       window.picture.arrayNotSorted = pictures.slice(0);
-      window.picture.arrayPictures = pictures;
+      window.picture.data = pictures;
       window.gallery.addEventListenerOnPictures();
     },
     function (errorMessage) {
@@ -127,7 +127,7 @@
   filterDiscussed.addEventListener('click', onFilterDiscussedClick);
 
   window.picture = {
-    arrayPictures: arrayPictures,
+    data: data,
     elementErrorShow: elementErrorShow,
     pictureLinks: pictureLinks,
     arrayNotSorted: arrayNotSorted
