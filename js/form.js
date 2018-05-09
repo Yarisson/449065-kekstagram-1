@@ -3,6 +3,7 @@
 (function () {
   var MAX_HASHTAG_LENGTH = 20;
   var MAX_NUMBER_OF_HASHTAGS = 5;
+  var uploadFile = document.querySelector('#upload-file');
   var buttonSubmitElement = document.querySelector('.img-upload__submit');
   var inputHashTagsElement = document.querySelector('.text__hashtags');
   var textareaCommentsElement = document.querySelector('.text__description');
@@ -10,6 +11,7 @@
   var form = document.querySelector('.img-upload__form');
 
   var resetFormTextClear = function () {
+    uploadFile.value = '';
     inputHashTagsElement.value = '';
     textareaCommentsElement.value = '';
   };
@@ -25,19 +27,19 @@
   };
 
   var onInputHashTagsFocus = function () {
-    document.removeEventListener('keydown', window.preview.uploadCancelClickEsc);
+    document.removeEventListener('keydown', window.preview.onUploadCancelClickEsc);
   };
 
   var onInputHashTagsBlur = function () {
-    document.addEventListener('keydown', window.preview.uploadCancelClickEsc);
+    document.addEventListener('keydown', window.preview.onUploadCancelClickEsc);
   };
 
   var onTextareaFocus = function () {
-    document.removeEventListener('keydown', window.preview.uploadCancelClickEsc);
+    document.removeEventListener('keydown', window.preview.onUploadCancelClickEsc);
   };
 
   var onTextareaBlur = function () {
-    document.addEventListener('keydown', window.preview.uploadCancelClickEsc);
+    document.addEventListener('keydown', window.preview.onUploadCancelClickEsc);
   };
 
   var validateHashTags = function () {
@@ -58,6 +60,12 @@
         setErrorMessageToHashTags('Отсутствует символ # в начале хэш-тега');
         return;
       }
+
+      if (hashTagsArray[i].length < 2) {
+        setErrorMessageToHashTags('После символа # должен быть текст');
+        return;
+      }
+
       if (hashTagsArray[i].length > MAX_HASHTAG_LENGTH) {
         setErrorMessageToHashTags('Длина одного хэш-тега не должна быть больше символов 20');
         return;

@@ -6,6 +6,7 @@
   var MAX_SIZE = 100;
   var SCALE_WIDTH = 455;
   var FILTER_COEFFICIENT_MAX = 1;
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
   var uploadFile = document.querySelector('#upload-file');
   var imgUploadEffects = document.querySelector('.img-upload__effects');
   var resizeControlValue = document.querySelector('.resize__control--value');
@@ -18,19 +19,41 @@
   var imgUploadScale = document.querySelector('.img-upload__scale');
   var scalePinElement = imgUploadScale.querySelector('.scale__pin');
   var scaleLevel = document.querySelector('.scale__level');
+  var imgUploadLabel = document.querySelector('.img-upload__label');
 
-  var uploadCancelClickHandler = function () {
+  imgUploadLabel.addEventListener('change', onImgUploadLabelChange);
+
+  var onImgUploadLabelChange = function () {
+    var file = imgUploadLabel.files[0];
+    var fileName = file.name.toLowerCase();
+
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      var reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        imgEffect.src = reader.result;
+      });
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  var onUploadCancelClick = function () {
     imgUploadOverlay.classList.add('hidden');
-    document.removeEventListener('keydown', uploadCancelClickEsc);
-    imgUploadCancel.removeEventListener('click', uploadCancelClickHandler);
+    document.removeEventListener('keydown', onUploadCancelClickEsc);
+    imgUploadCancel.removeEventListener('click', onUploadCancelClick);
     document.querySelector('#upload-file').value = '';
   };
 
-  var uploadCancelClickEsc = function (evt) {
+  var onUploadCancelClickEsc = function (evt) {
     if (evt.keyCode === ESC) {
       imgUploadOverlay.classList.add('hidden');
-      document.removeEventListener('keydown', uploadCancelClickEsc);
-      imgUploadCancel.removeEventListener('click', uploadCancelClickHandler);
+      document.removeEventListener('keydown', onUploadCancelClickEsc);
+      imgUploadCancel.removeEventListener('click', onUploadCancelClick);
       document.querySelector('#upload-file').value = '';
     }
   };
@@ -39,9 +62,9 @@
     imgUploadScale.classList.add('hidden');
     resizeControlValue.setAttribute('value', '100%');
     imgUploadOverlay.classList.remove('hidden');
-    imgUploadCancel.addEventListener('click', uploadCancelClickHandler);
-
-    document.addEventListener('keydown', uploadCancelClickEsc);
+    imgUploadLabel.addEventListener('change', onImgUploadLabelChange);
+    imgUploadCancel.addEventListener('click', onUploadCancelClick);
+    document.addEventListener('keydown', onUploadCancelClickEsc);
   };
 
   var onUploadEffectsClick = function (evt) {
@@ -168,7 +191,7 @@
   scalePinElement.addEventListener('mousedown', onScalePinElementMousedown);
 
   window.preview = {
-    uploadCancelClickEsc: uploadCancelClickEsc,
+    onUploadCancelClickEsc: onUploadCancelClickEsc,
     resetImgEffect: resetImgEffect
   };
 })();

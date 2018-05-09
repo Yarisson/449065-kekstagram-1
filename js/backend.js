@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var STATUS_OK = 200;
+  var STATUS_BAD_REQUEST = 400;
+  var STATUS_UNAUTHORIZED = 401;
+  var STATUS_NOT_FOUND = 404;
+
   var load = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -9,17 +14,17 @@
 
       var error;
       switch (xhr.status) {
-        case 200:
+        case STATUS_OK:
           onLoad(xhr.response);
           break;
 
-        case 400:
+        case STATUS_BAD_REQUEST:
           error = 'Неверный запрос';
           break;
-        case 401:
+        case STATUS_UNAUTHORIZED:
           error = 'Пользователь не авторизован';
           break;
-        case 404:
+        case STATUS_NOT_FOUND:
           error = 'Ничего не найдено';
           break;
 
@@ -53,16 +58,16 @@
     xhr.addEventListener('load', function () {
       var error;
       switch (xhr.status) {
-        case 200:
+        case STATUS_OK:
           onLoad(xhr.response);
           break;
-        case 400:
+        case STATUS_BAD_REQUEST:
           error = 'Неверный запрос';
           break;
-        case 401:
+        case STATUS_UNAUTHORIZED:
           error = 'Пользователь не авторизован';
           break;
-        case 404:
+        case STATUS_NOT_FOUND:
           error = 'Ничего не найдено';
           break;
         default:

@@ -84,7 +84,7 @@
     var currentId = evt.target.getAttribute('data-element-id');
     var imgSrc = evt.target.getAttribute('src');
     var bigPictureCancel = document.querySelector('.big-picture__cancel');
-    showBigPicture(imgSrc, currentId, window.picture.arrayPictures);
+    showBigPicture(imgSrc, currentId, window.picture.data);
     showSocialComments();
     document.querySelector('.social__comment-count').classList.add('hidden');
     document.querySelector('.social__comment-loadmore').classList.add('hidden');
