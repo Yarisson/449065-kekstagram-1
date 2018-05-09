@@ -41,7 +41,7 @@
       reader.readAsDataURL(file);
     }
   };
-
+  
   var onUploadCancelClick = function () {
     imgUploadOverlay.classList.add('hidden');
     document.removeEventListener('keydown', onUploadCancelClickEsc);
@@ -62,7 +62,6 @@
     imgUploadScale.classList.add('hidden');
     resizeControlValue.setAttribute('value', '100%');
     imgUploadOverlay.classList.remove('hidden');
-    imgUploadLabel.addEventListener('change', onImgUploadLabelChange);
     imgUploadCancel.addEventListener('click', onUploadCancelClick);
     document.addEventListener('keydown', onUploadCancelClickEsc);
   };
